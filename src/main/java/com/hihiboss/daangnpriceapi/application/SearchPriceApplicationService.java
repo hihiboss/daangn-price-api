@@ -27,6 +27,6 @@ public class SearchPriceApplicationService {
     }
 
     private Boolean validatePriceScope(int startPrice, int endPrice) {
-        return (startPrice >= 0) && (endPrice >= 0) && (startPrice > endPrice);
+        return (startPrice >= 0) && (endPrice >= 0) && (startPrice < endPrice);
     }
 }
