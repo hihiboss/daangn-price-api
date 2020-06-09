@@ -30,6 +30,10 @@ public class Article {
             return 0;
         }
 
+        if(priceString.equals("-")) {
+            return -1;
+        }
+
         String priceWithoutUnit = priceString.replace("원", "");
         String priceWithoutComma = priceWithoutUnit.replace(",", "");
 
