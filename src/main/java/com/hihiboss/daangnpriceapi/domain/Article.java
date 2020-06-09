@@ -26,6 +26,10 @@ public class Article {
     }
 
     private int convertPriceToInteger(String priceString) {
+        if(priceString.equals("무료나눔")) {
+            return 0;
+        }
+
         String priceWithoutUnit = priceString.replace("원", "");
         String priceWithoutComma = priceWithoutUnit.replace(",", "");
 
