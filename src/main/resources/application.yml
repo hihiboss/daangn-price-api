@@ -1,6 +1,9 @@
 server:
   port: 18080
 
+daangn:
+  url: https://www.daangn.com/search/
+
 spring:
   profiles:
     active: dev
