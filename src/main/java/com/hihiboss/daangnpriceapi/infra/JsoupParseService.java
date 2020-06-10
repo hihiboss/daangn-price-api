@@ -1,8 +1,7 @@
 package com.hihiboss.daangnpriceapi.infra;
 
-import com.hihiboss.daangnpriceapi.config.DaangnConfig;
-import com.hihiboss.daangnpriceapi.domain.CrawlService;
 import com.hihiboss.daangnpriceapi.domain.Article;
+import com.hihiboss.daangnpriceapi.domain.ParseService;
 import lombok.AllArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -10,40 +9,26 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class JsoupCrawlService implements CrawlService {
-    private DaangnConfig daangnConfig;
+public class JsoupParseService implements ParseService {
 
     @Override
-    public List<Article> crawlArticles(String crawlingKeyword) {
+    public List<Article> parseArticles(String html) {
 
-        Elements elements = getElementsFromWeb(crawlingKeyword);
-        if (elements == null){
-            return null;
-        }
+        Elements elements = getElementsFromString(html);
 
         return elements.stream()
                 .map(this::createArticleFromElement)
                 .collect(Collectors.toList());
     }
 
-    private Elements getElementsFromWeb(String keyword) {
-        String daangnUrl = daangnConfig.url();
-
-        try {
-            Document doc = Jsoup.connect(daangnUrl + keyword).get();
-
-            return doc.getElementsByClass("article-info");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+    private Elements getElementsFromString(String htmlString) {
+        Document doc = Jsoup.parse(htmlString);
+        return doc.getElementsByClass("article-info");
     }
 
     private Article createArticleFromElement(Element articleInfo) {
