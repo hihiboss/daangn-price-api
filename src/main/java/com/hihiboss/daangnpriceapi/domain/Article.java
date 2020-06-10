@@ -5,6 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class Article {
+    private Long id;
     private String title;
     private String content;
     private String region;
@@ -12,7 +13,8 @@ public class Article {
     private int priceValue;
 
     @Builder
-    public Article(String title, String content, String region, String price) {
+    public Article(Long id, String title, String content, String region, String price) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.region = region;

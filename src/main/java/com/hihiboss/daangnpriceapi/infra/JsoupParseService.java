@@ -18,23 +18,29 @@ public class JsoupParseService implements ParseService {
 
     @Override
     public List<Article> parseArticles(String html) {
+        Document doc = Jsoup.parse(html);
 
-        Elements elements = getElementsFromString(html);
+        Elements elements = getFleaMarketArticleElements(doc);
 
         return elements.stream()
                 .map(this::createArticleFromElement)
                 .collect(Collectors.toList());
     }
 
-    private Elements getElementsFromString(String htmlString) {
-        Document doc = Jsoup.parse(htmlString);
-        return doc.getElementsByClass("article-info");
+    private Elements getFleaMarketArticleElements(Document doc) {
+        return doc.getElementsByClass("flea-market-article-link");
     }
 
-    private Article createArticleFromElement(Element articleInfo) {
-        Element articleTitleContent = articleInfo.getElementsByClass("article-title-content").get(0);
+    private Article createArticleFromElement(Element fleaMarketArticle) {
+        String articleHref = fleaMarketArticle.attr("href");
+        String articleIdStr = articleHref.substring("/articles/".length());
+        Long articleId = Long.parseLong(articleIdStr);
+
+        Element articleInfo = fleaMarketArticle.getElementsByClass("article-info").first();
+        Element articleTitleContent = articleInfo.getElementsByClass("article-title-content").first();
 
         return Article.builder()
+                .id(articleId)
                 .title(articleTitleContent.getElementsByClass("article-title").text())
                 .content(articleTitleContent.getElementsByClass("article-content").text())
                 .region(articleInfo.getElementsByClass("article-region-name").text())
