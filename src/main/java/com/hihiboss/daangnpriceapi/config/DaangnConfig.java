@@ -17,4 +17,10 @@ public class DaangnConfig {
     public String url() {
         return daangnProperties().getUrl();
     }
+
+    @Bean
+    public int maxPage() { return daangnProperties().getMaxPage(); }
+
+    @Bean
+    public int timeout() { return daangnProperties().getTimeout(); }
 }

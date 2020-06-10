@@ -7,4 +7,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "daangn")
 public class DaangnProperties {
     private String url;
+    private int maxPage;
+    private int timeout;
 }

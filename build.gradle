@@ -36,8 +36,11 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 
-	// Jsoup
+	// Parsing
 	compile 'org.jsoup:jsoup:1.13.1'
+
+	// Crawling
+	compile 'net.sourceforge.htmlunit:htmlunit:2.41.0'
 }
 
 test {
