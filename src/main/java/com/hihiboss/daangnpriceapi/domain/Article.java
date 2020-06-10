@@ -26,16 +26,16 @@ public class Article {
         return (this.priceValue >= startPrice) && (this.priceValue <= endPrice);
     }
 
-    private int convertPriceToInteger(String priceString) {
-        if(priceString.equals("무료나눔")) {
+    private int convertPriceToInteger(String price) {
+        if(price.equals("무료나눔")) {
             return 0;
         }
 
-        if(priceString.equals("-")) {
+        if(price.equals("-")) {
             return -1;
         }
 
-        String priceWithoutUnit = priceString.replace("원", "");
+        String priceWithoutUnit = price.replace("원", "");
         String priceWithoutComma = priceWithoutUnit.replace(",", "");
 
         return Integer.parseInt(priceWithoutComma);
