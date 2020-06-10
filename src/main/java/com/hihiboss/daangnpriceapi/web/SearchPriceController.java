@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/article")
+@RequestMapping("api/v1/articles")
 @AllArgsConstructor
 public class SearchPriceController {
     private SearchPriceApplicationService searchPriceApplicationService;
