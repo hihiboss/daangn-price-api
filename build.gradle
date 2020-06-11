@@ -29,7 +29,7 @@ dependencies {
 
 	// DB
 	runtimeOnly 'com.h2database:h2'
-	runtimeOnly 'org.postgresql:postgresql'
+	runtimeOnly 'mysql:mysql-connector-java'
 
 	// Test
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {

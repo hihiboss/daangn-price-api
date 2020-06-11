@@ -43,3 +43,23 @@ spring:
 ---
 spring:
   profiles: prod
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql:3306/daangn
+    username: daangn
+    password: hihiboss
+    platform: mysql
+    hikari:
+      auto-commit: false
+      idle-timeout: 10000
+      minimumIdle: 30
+      maximum-pool-size: 150
+      read-only: false
+      connection-timeout: 20000
+
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    generate-ddl: true
+    show-sql: true
