@@ -45,11 +45,10 @@ spring:
   profiles: prod
 
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql:3306/daangn
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://mariadb:3306/daangn
     username: daangn
     password: hihiboss
-    platform: mysql
     hikari:
       auto-commit: false
       idle-timeout: 10000
@@ -63,3 +62,9 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     generate-ddl: true
     show-sql: true
+    hibernate:
+      format_sql: true
+      ddl-auto: update
+
+server:
+  port: 18080

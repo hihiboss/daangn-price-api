@@ -1,13 +1,16 @@
 version: '3'
 services:
-  mysql:
-    container_name: daangn-price-mysql
-    image: mysql:5.7
+  mariadb:
+    container_name: daangn-price-mariadb
+    image: mariadb:10.3
     environment:
       MYSQL_DATABASE: daangn
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: daangn
       MYSQL_PASSWORD: hihiboss
+      TZ: "Asia/Seoul"
+      SYMFONY__ENV__DATABASE_CHARSET: utf8mb4
+    command: --character_set_client=utf8 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --character-set-client-handshake=FALSE
     ports:
       - 3306:3306
 
@@ -20,4 +23,6 @@ services:
       - -Dspring.profiles.active=prod
       - daangn-price-api.jar
     depends_on:
-      - mysql
+      - mariadb
+    ports:
+      - 18080:18080
