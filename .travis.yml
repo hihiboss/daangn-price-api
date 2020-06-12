@@ -12,3 +12,36 @@ cache:
     - '$HOME/.gradle'
 
 script: "./gradlew clean build"
+
+before_deploy:
+  - zip -r daangn-price-api *
+  - mkdir -p deploy
+  - mv daangn-price-api.zip deploy/daangn-price-api.zip
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: daangn-price-api-deploy
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: public_read
+    local_dir: deploy
+    wait-until-deployed: true
+    on:
+      repo: hihiboss/daangn-price-api
+      branch: master
+
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: daangn-price-api-deploy
+    key: daangn-price-api.zip
+    bundle_type: zip
+    application: daangn-price-api
+    deployment_group: daangn-price-api-group
+    region: ap-northeast-2
+    wait-until-deployed: true
+    on:
+      repo: hihiboss/daangn-price-api
+      branch: master
