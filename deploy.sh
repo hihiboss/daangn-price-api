@@ -16,23 +16,14 @@ echo "> Start building the project"
 echo "> Copy the build files"
 cp ./build/libs/*.jar $REPOSITORY/
 
-CURRENT_PID=$(pgrep -f springboot-webservice)
-echo "> PID of current running application: $(CURRENT_PID)"
-
-if [ -z $CURRENT_PID ]; then
-    echo "> There is no application running"
-    echo "> Killing application process is passed"
-else
-    echo "> kill -2 $CURRENT_PID"
-    kill -2 $CURRENT_PID
-    sleep 5
-fi
-
 echo "> Make JAR file"
 ./gradlw bootJar
 
 echo "> Build Docker image"
 docker build -t hihiboss/daangn-price-api .
+
+echo "> Kill running application"
+docker-compose down
 
 echo "> Deploy new application"
 docker-compose up -d
