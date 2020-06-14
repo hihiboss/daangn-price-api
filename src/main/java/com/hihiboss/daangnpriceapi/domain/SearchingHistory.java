@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "search_history")
+@Table(name = "searching_history")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class SearchHistory {
+public class SearchingHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -30,7 +30,7 @@ public class SearchHistory {
     private List<Long> articleIdList = new ArrayList<>();
 
     @Builder
-    public SearchHistory(String keyword, int minPrice, int maxPrice, List<Long> articleIdList) {
+    public SearchingHistory(String keyword, int minPrice, int maxPrice, List<Long> articleIdList) {
         this.keyword = keyword;
         this.minPrice = minPrice;
         this.maxPrice = maxPrice;
