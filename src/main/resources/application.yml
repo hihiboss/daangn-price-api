@@ -65,6 +65,3 @@ spring:
     hibernate:
       format_sql: true
       ddl-auto: update
-
-server:
-  port: 18080

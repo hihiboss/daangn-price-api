@@ -20,10 +20,10 @@ public class HistoryController {
         return searchApplicationService.getAllSearchingHistories();
     }
 
-    @GetMapping()
+    @GetMapping("/{keyword}")
     @ResponseStatus(value = HttpStatus.OK)
     public List<SearchingHistory> getHistoriesByKeyword(
-            @RequestParam String keyword
+            @PathVariable String keyword
     ) {
         return searchApplicationService.getSearchingHistoriesByKeyword(keyword);
     }
