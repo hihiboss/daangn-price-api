@@ -1,6 +1,6 @@
 package com.hihiboss.daangnpriceapi.web;
 
-import com.hihiboss.daangnpriceapi.application.SearchPriceApplicationService;
+import com.hihiboss.daangnpriceapi.application.SearchApplicationService;
 import com.hihiboss.daangnpriceapi.domain.Article;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,16 +11,16 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/articles")
 @AllArgsConstructor
-public class SearchPriceController {
-    private SearchPriceApplicationService searchPriceApplicationService;
+public class ArticleController {
+    private SearchApplicationService searchApplicationService;
 
     @GetMapping()
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Article> getResult(
+    public List<Article> getSearchResult(
             @RequestParam String keyword,
             @RequestParam int startPrice,
             @RequestParam int endPrice
     ) {
-        return searchPriceApplicationService.searchArticleWithPrice(keyword, startPrice, endPrice);
+        return searchApplicationService.searchArticlesByPrice(keyword, startPrice, endPrice);
     }
 }

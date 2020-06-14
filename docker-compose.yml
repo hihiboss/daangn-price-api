@@ -10,6 +10,8 @@ services:
       MYSQL_PASSWORD: hihiboss
       TZ: "Asia/Seoul"
       SYMFONY__ENV__DATABASE_CHARSET: utf8mb4
+    volumes:
+      - /home/ec2-user/database/daangn-price-api:/var/lib/mysql
     command: --character_set_client=utf8 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --character-set-client-handshake=FALSE
     ports:
       - 3306:3306

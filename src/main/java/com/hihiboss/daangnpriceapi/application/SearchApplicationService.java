@@ -10,13 +10,14 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class SearchPriceApplicationService {
+public class SearchApplicationService {
     private CrawlService crawlService;
     private ParseService parseService;
-    private SearchHistoryRepository searchHistoryRepository;
+
+    private SearchingHistoryRepository searchingHistoryRepository;
 
     @Transactional
-    public List<Article> searchArticleWithPrice(String searchingKeyword, int startPrice, int endPrice) {
+    public List<Article> searchArticlesByPrice(String searchingKeyword, int startPrice, int endPrice) {
         if (!validatePriceScope(startPrice, endPrice)) {
             throw new IllegalArgumentException();
         }
@@ -31,8 +32,8 @@ public class SearchPriceApplicationService {
                 .map(Article::getId)
                 .collect(Collectors.toList());
 
-        searchHistoryRepository.save(
-                SearchHistory.builder()
+        searchingHistoryRepository.save(
+                SearchingHistory.builder()
                         .keyword(searchingKeyword)
                         .minPrice(startPrice)
                         .maxPrice(endPrice)
@@ -41,6 +42,16 @@ public class SearchPriceApplicationService {
         );
 
         return searchedArticles;
+    }
+
+    @Transactional(readOnly = true)
+    public List<SearchingHistory> getAllSearchingHistories() {
+        return searchingHistoryRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public List<SearchingHistory> getSearchingHistoriesByKeyword(String keyword) {
+        return searchingHistoryRepository.findByKeyword(keyword);
     }
 
     private Boolean validatePriceScope(int startPrice, int endPrice) {
