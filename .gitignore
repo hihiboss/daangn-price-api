@@ -1,5 +1,6 @@
 ### CUSTOM ###
 nohup.out
+.DS_Store
 
 HELP.md
 .gradle
