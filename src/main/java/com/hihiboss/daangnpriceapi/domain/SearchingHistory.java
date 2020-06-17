@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name = "searching_history")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class SearchingHistory {
+public class SearchingHistory extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
