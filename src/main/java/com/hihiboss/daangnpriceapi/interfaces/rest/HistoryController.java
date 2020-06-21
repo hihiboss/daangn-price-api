@@ -1,4 +1,4 @@
-package com.hihiboss.daangnpriceapi.web;
+package com.hihiboss.daangnpriceapi.interfaces.rest;
 
 import com.hihiboss.daangnpriceapi.application.SearchApplicationService;
 import com.hihiboss.daangnpriceapi.domain.SearchingHistory;

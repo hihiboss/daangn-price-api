@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>당근마켓 가격 검색</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+
+<h1>당근마켓 가격 검색</h1>
+
+<h2>검색하기</h2>
+<div class="col-md-12">
+    <div class="col-md-4">
+        <div class="row">
+            <label for="keyword">키워드</label>
+            <input type="text" id="keyword" placeholder="검색할 상품을 입력하세요">
+        </div>
+        <div class="row">
+            <label for="startPrice">최소 가격</label>
+            <input type="number" id="startPrice" placeholder="최소 가격을 입력하세요">
+        </div>
+        <div class="row">
+            <label for="endPrice">최대 가격</label>
+            <input type="number" id="endPrice" placeholder="최대 가격을 입력하세요">
+        </div>
+        <br>
+        <div class="row">
+            <button type="button" class="btn btn-primary" id="btn-search">검색</button>
+            <button type="button" class="btn btn-info" id="btn-history">전체 검색 기록</button>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script src="/js.app/main.js"></script>
+
+</body>
+</html>
