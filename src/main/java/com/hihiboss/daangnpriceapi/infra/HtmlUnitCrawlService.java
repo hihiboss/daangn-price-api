@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -17,7 +19,7 @@ public class HtmlUnitCrawlService implements CrawlService {
     private WebClient webClient;
 
     @Override
-    public String crawlPage(String crawlingKeyword) {
+    public List<String> crawlPages(String crawlingKeyword) {
         String url = daangnConfig.url();
 
         try {
@@ -25,24 +27,31 @@ public class HtmlUnitCrawlService implements CrawlService {
 
             HtmlElement loadButton = getLoadButton(page);
             int totalPage = getTotalPages(loadButton);
-            int currentPage = getCurrentPage(loadButton);
+            int configuredMaxPage = daangnConfig.maxPage();
 
-            while(currentPage < daangnConfig.maxPage() && currentPage < totalPage) {
-                page = loadButton.click();
-                webClient.waitForBackgroundJavaScript(daangnConfig.timeout());
-
-                loadButton = getLoadButton(page);
-                totalPage = getTotalPages(loadButton);
-                currentPage = getCurrentPage(loadButton);
+            if (totalPage > configuredMaxPage) {
+                totalPage = configuredMaxPage;
             }
 
-            return page.asXml();
+            List<String> htmlStringList = new ArrayList<>();
+            for (int pageNum = 1; pageNum < totalPage; pageNum++) {
+                htmlStringList.add(getHtmlPageString(page, pageNum));
+            }
+            return htmlStringList;
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return null;
+    }
+
+    private String getHtmlPageString(HtmlPage page, int pageNumber) throws IOException {
+        HtmlElement loadButton = getLoadButton(page);
+        loadButton.setAttribute("data-page", String.valueOf(pageNumber));
+
+        HtmlPage resultPage = loadButton.click();
+        return resultPage.asXml();
     }
 
     private HtmlElement getLoadButton(HtmlPage page) {
