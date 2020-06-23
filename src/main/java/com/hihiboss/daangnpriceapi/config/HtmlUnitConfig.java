@@ -12,10 +12,10 @@ public class HtmlUnitConfig {
     public WebClient webClient() {
         WebClient webClient = new WebClient(BrowserVersion.FIREFOX);
         webClient.getOptions().setJavaScriptEnabled(true);
+        webClient.getOptions().setRedirectEnabled(true);
         webClient.getOptions().setThrowExceptionOnScriptError(true);
         webClient.getOptions().setCssEnabled(false);
         webClient.setAjaxController(new NicelyResynchronizingAjaxController());
-        webClient.waitForBackgroundJavaScript(10000);
         return webClient;
     }
 }

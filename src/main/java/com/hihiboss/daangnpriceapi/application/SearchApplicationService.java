@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,8 +23,13 @@ public class SearchApplicationService {
             throw new IllegalArgumentException();
         }
 
-        String crawledPage = crawlService.crawlPage(searchingKeyword);
-        List<Article> articles = parseService.parseArticles(crawledPage);
+        List<String> crawledPages = crawlService.crawlPages(searchingKeyword);
+        List<Article> articles = crawledPages.parallelStream()
+                .map(page -> {
+                    return parseService.parseArticles(page);
+                })
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
 
         List<Article> searchedArticles = articles.stream()
                 .filter(article -> article.isPriceContained(startPrice, endPrice))

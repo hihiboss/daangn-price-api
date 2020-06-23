@@ -3,8 +3,8 @@ server:
 
 daangn:
   url: https://www.daangn.com/search/
-  max-page: 5
-  timeout: 1000
+  max-page: 10
+  timeout: 500
 
 spring:
   profiles:
