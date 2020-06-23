@@ -17,13 +17,14 @@ var main = {
 
         var queryParams = this.dataToUrl(data);
 
+        var _this = this;
         $.ajax({
             type: 'GET',
             url: '/api/v1/articles' + queryParams,
             contentType: 'application/json; charset=utf-8',
         }).done(function (result) {
-            alert(result);
-            location.reload();
+            alert(result.length + "개의 글을 찾았습니다.");
+            _this.show(result);
         }).fail(function (error) {
             alert(error);
         });
@@ -37,6 +38,15 @@ var main = {
     },
     history: function () {
         location.href = "/history";
+    },
+    show: function (result) {
+        var tableBody = $("#article-table").html();
+        var compiled = Handlebars.compile(tableBody);
+        var data = { articles: result };
+
+        $('#result-table').html(compiled(result));
+
+        console.log(data);
     }
 };
 

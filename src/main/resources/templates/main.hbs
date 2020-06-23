@@ -32,10 +32,46 @@
         </div>
     </div>
 </div>
-
+<br><br>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.js"></script>
+
+<div id="result-table">
+    <script id="article-table" type="text/x-handlebars-template">
+{{#if articles}}
+    <h2>검색 결과</h2>
+<div class="col-md-12">
+    <table class="table table-horizontal table-bordered">
+        <thead class="thead-strong">
+        <tr>
+            <th>게시글 ID</th>
+            <th>제목</th>
+            <th>내용</th>
+            <th>판매 지역</th>
+            <th>가격</th>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+            {{#each articles}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{title}}</td>
+                <td>{{content}}</td>
+                <td>{{region}}</td>
+                <td>{{price}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+{{/if}}
+
+
+    </script>
+</div>
+
 
 <script src="/js.app/main.js"></script>
 
